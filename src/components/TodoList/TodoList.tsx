@@ -1,24 +1,23 @@
 /* eslint-disable */
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../app/store';
 import { setCurrentTodo } from '../../features/currentTodo';
 import { getUser } from '../../api';
 import { setUser } from '../../features/userSlice';
 import classNames from 'classnames';
 import { filterByStatus } from '../../features/filter';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 type Props = {
   setIsLoading: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export const TodoList: React.FC<Props> = ({setIsLoading}) => {
-  const dispatch = useDispatch();
-  const todos = useSelector((state: RootState) => state.todos);
-  const selectedTodo = useSelector((state: RootState) => state.currentTodo);
-  const filteredTodos = useSelector((state: RootState) => state.filter.filteredTodos);
-  const status = useSelector((state: RootState) => state.filter.status);
-  const query = useSelector((state: RootState) => state.filter.query);
+  const dispatch = useAppDispatch();
+  const todos = useAppSelector(state => state.todos);
+  const selectedTodo = useAppSelector(state => state.currentTodo);
+  const filteredTodos = useAppSelector(state => state.filter.filteredTodos);
+  const status = useAppSelector(state => state.filter.status);
+  const query = useAppSelector(state => state.filter.query);
 
   useEffect(() => {
   dispatch(filterByStatus(todos));
@@ -43,10 +42,6 @@ export const TodoList: React.FC<Props> = ({setIsLoading}) => {
 
   return (
     <>
-      {/* <p className="notification is-warning">
-        There are no todos matching current filter criteria
-      </p> */}
-
       <table className="table is-narrow is-fullwidth">
         <thead>
           <tr>

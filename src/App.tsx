@@ -4,14 +4,13 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import { Loader, TodoFilter, TodoList, TodoModal } from './components';
 import { useEffect, useState } from 'react';
 import { getTodos } from './api';
-import { useDispatch, useSelector } from 'react-redux';
 import { setTodos } from './features/todos';
-import { RootState } from './app/store';
+import { useAppDispatch, useAppSelector } from './app/hooks';
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState<string | null>('todo');
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setIsLoading('todo');
@@ -30,7 +29,7 @@ export const App = () => {
     loadTodos();
   }, [dispatch]);
 
-  const user = useSelector((state: RootState) => state.user);
+  const user = useAppSelector(state => state.user);
 
   return (
     <>
